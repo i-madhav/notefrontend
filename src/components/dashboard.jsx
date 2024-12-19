@@ -25,7 +25,7 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/document/all",
+        "https://noteapplicationbackend.onrender.com/api/v1/document/all",
         {
           credentials: "include",
         }
@@ -48,7 +48,7 @@ const Dashboard = () => {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("http://localhost:8000/api/v1/document/create", {
+      const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/document/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const Dashboard = () => {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("http://localhost:8000/api/v1/document/update", {
+      const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/document/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -103,14 +103,12 @@ const Dashboard = () => {
     }
   };
 
-  // src/components/Dashboard.js
-
   const handleDeleteNote = async (id) => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
       const res = await fetch(
-        `http://localhost:8000/api/v1/document/delete/${id}`,
+        `https://noteapplicationbackend.onrender.com/api/v1/document/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -132,7 +130,6 @@ const Dashboard = () => {
     }
   };
 
-  // Function to handle editing a note
   const handleEditNote = (note) => {
     setEditNoteId(note._id);
     setNoteTitle(note.title);
@@ -141,7 +138,7 @@ const Dashboard = () => {
     setShowPopup(true);
   };
 
-  // Function to close the popup and reset form fields
+
   const closePopup = () => {
     setShowPopup(false);
     setEditNoteId(null);

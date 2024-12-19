@@ -14,7 +14,7 @@ const ProfileComponent = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/v1/user/me", {
+        const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/user/me", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -57,7 +57,7 @@ const ProfileComponent = () => {
     setError(null);
     setSuccess(null);
     try {
-      const res = await fetch("http://localhost:8000/api/v1/user/update", {
+      const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {

@@ -10,7 +10,7 @@ const SignIn = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/v1/user/signin", {
+      const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/user/signin",{
         method: "POST",
         headers: {
           "Content-type": "application/json",
