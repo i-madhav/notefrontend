@@ -5,11 +5,21 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+    setError(""); 
     setLoading(true);
     try {
       const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/user/signup", {
@@ -40,6 +50,11 @@ const SignUp = () => {
         <h1 className="text-2xl font-semibold text-gray-700 text-center mb-4">
           Sign Up
         </h1>
+        {error && (
+          <div className="mb-4 text-sm text-red-500">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSignUp}>
           <div className="mb-4">
             <label

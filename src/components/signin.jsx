@@ -5,27 +5,47 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handleSignIn = async (e) => {
     e.preventDefault();
+
+    // Reset error
+    setError("");
+
+    // Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await fetch("https://noteapplicationbackend.onrender.com/api/v1/user/signin",{
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const res = await fetch(
+        "https://noteapplicationbackend.onrender.com/api/v1/user/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
 
       if (res.ok) {
         navigate("/dashboard");
       }
-
     } catch (error) {
       console.log(error);
     } finally {
@@ -39,6 +59,7 @@ const SignIn = () => {
         <h1 className="text-2xl font-semibold text-gray-700 text-center mb-4">
           Sign In
         </h1>
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSignIn}>
           <div className="mb-4">
             <label
@@ -82,9 +103,9 @@ const SignIn = () => {
           </button>
         </form>
 
-        <p className=" mt-3">
+        <p className="mt-3">
           If you do not have an account go to{" "}
-          <Link to={"/signup"} className=" underline">
+          <Link to={"/signup"} className="underline">
             signup
           </Link>{" "}
         </p>
